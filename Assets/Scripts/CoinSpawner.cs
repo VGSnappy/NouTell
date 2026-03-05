@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
@@ -6,9 +7,10 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Spawn Settings")]
-    [SerializeField] private int coinsCount = 40;
-    [SerializeField] private float spawnRadius = 25f;
-    [SerializeField] private float respawnDistance = 30f;
+    [SerializeField]  int coinsCount = 40;
+    [SerializeField]  float spawnRadius = 25f;
+    [SerializeField]  float respawnDistance = 30f;
+    [SerializeField]  float spawnDelay = 1f;
 
     private GameObject[] spawnedCoins;
     private float respawnDistanceSqr;
@@ -22,10 +24,20 @@ public class CoinSpawner : MonoBehaviour
 
         spawnedCoins = new GameObject[coinsCount];
 
+
+        // Запускаємо корутину спавну монет
+        StartCoroutine(SpawnCoinsWithDelay());
+
+    }
+
+     IEnumerator SpawnCoinsWithDelay()
+    {
         for (int i = 0; i < coinsCount; i++)
         {
             Vector3 pos = GetRandomPointAroundPlayer();
             spawnedCoins[i] = coinPool.Get(pos);
+
+            yield return new WaitForSeconds(spawnDelay); // чекаємо 1 сек
         }
     }
 
@@ -34,7 +46,7 @@ public class CoinSpawner : MonoBehaviour
         for (int i = 0; i < spawnedCoins.Length; i++)
         {
             GameObject coin = spawnedCoins[i];
-            if (!coin.activeSelf) continue;
+            if (!coin || !coin.activeSelf) continue;
 
             float sqrDistance = (player.position - coin.transform.position).sqrMagnitude;
             if (sqrDistance > respawnDistanceSqr)
