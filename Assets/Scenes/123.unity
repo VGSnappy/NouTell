@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 181089738}
   - component: {fileID: 181089740}
   - component: {fileID: 181089739}
+  - component: {fileID: 181089741}
   m_Layer: 0
   m_Name: CoinManager
   m_TagString: Untagged
@@ -169,6 +170,7 @@ MonoBehaviour:
   coinsCount: 50
   spawnRadius: 25
   respawnDistance: 35
+  spawnDelay: 1
 --- !u!114 &181089740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,11 +183,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e619f2d6818f4f43b478cd0cb72135c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPool
-  objectPrefabs:
-  - {fileID: 928441845465545631, guid: 2fef6c2a826d06c4284b2b3312c5edf2, type: 3}
-  parentTarget: {fileID: 1511259130}
-  maxPoolSize: 150
-  maxActiveObjects: 100
+  coinPrefab: {fileID: 928441845465545631, guid: 2fef6c2a826d06c4284b2b3312c5edf2, type: 3}
+  poolSize: 40
+--- !u!114 &181089741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181089737}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c8c9937d5c0d2448f6c462a461f5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinBehavior
+  coinPool: {fileID: 181089740}
+  orbitSpeed: 200
+  shrinkSpeed: 2
+  moveSpeed: 3
+  particleSpiralSpeed: 5
+--- !u!1 &374142227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 374142228}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: PEnemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &374142228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374142227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 950384203}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &584156902
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +483,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1511259130}
+  - {fileID: 374142228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1511259129
@@ -449,7 +497,7 @@ GameObject:
   - component: {fileID: 1511259130}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: PCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,8 +527,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1842720081}
   m_Layer: 0
-  m_Name: GamingSystems
-  m_TagString: Untagged
+  m_Name: GameControllers
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -667,13 +715,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 105290089955221433, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 8c06e6be9f0b8574fbcc8f778bc3c356, type: 2}
     - target: {fileID: 3629332066590950466, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700868540549727076, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700868540549727076, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8463339165113303503, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
       propertyPath: m_LocalPosition.x

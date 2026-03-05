@@ -49,10 +49,11 @@
     <Analyzer Include="D:\Create\Unity\Hub\6000.3.10f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CoinSpawner.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\CoinPool.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\Systems\CoinPool.cs" />
+    <Compile Include="Assets\Scripts\Systems\CoinSpawner.cs" />
+    <Compile Include="Assets\Scripts\Systems\CoinBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
