@@ -13,6 +13,9 @@ public class CoinPool : MonoBehaviour
     Queue<GameObject> pool = new Queue<GameObject>();
     Queue<GameObject> activeObjects = new Queue<GameObject>();
 
+    /// <summary>
+    /// Ініціалізація пулу під задану кількість монет
+    /// </summary>
     public void InitializePool(int requiredActiveObjects)
     {
         int targetPoolSize = Mathf.Max(requiredActiveObjects, maxActiveObjects);
