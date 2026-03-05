@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 181089738}
   - component: {fileID: 181089740}
   - component: {fileID: 181089739}
-  - component: {fileID: 181089741}
   m_Layer: 0
   m_Name: CoinManager
   m_TagString: Untagged
@@ -185,22 +184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoinPool
   coinPrefab: {fileID: 3841823048447609891, guid: 1e58bfa0ceacb844ea6581199188e139, type: 3}
   poolSize: 40
---- !u!114 &181089741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181089737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e92fffda4e70445acd289dc6a1b73d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinBehavior
-  coinPool: {fileID: 181089740}
-  orbitSpeed: 200
-  shrinkSpeed: 2
-  moveSpeed: 3
 --- !u!1 &584156902
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +602,7 @@ GameObject:
   - component: {fileID: 1511259130}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: PCoin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -649,8 +632,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1842720081}
   m_Layer: 0
-  m_Name: GameControllers
-  m_TagString: GameController
+  m_Name: GamingSystems
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
