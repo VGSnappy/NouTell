@@ -1,72 +1,64 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
- class CoinPool : MonoBehaviour
+public class CoinPool : MonoBehaviour
 {
-    [SerializeField] GameObject[] objectPrefab; // Префаби об'єктів у пулі
-    [SerializeField] Transform parentTarget;
-    [SerializeField] int initialPoolSize = 50; // Початкова кількість об'єктів у пулі
-    [SerializeField] int maxPoolSize = 150; // Максимальна кількість об'єктів у пулі
-    [SerializeField] int maxActiveObjects = 100; // Максимальна кількість активних об'єктів
+    [SerializeField] private GameObject[] objectPrefabs;
+    [SerializeField] private Transform parentTarget;
 
-    private Queue<GameObject> pool; // Черга для об'єктів у пулі
-    private Queue<GameObject> activeObjects; // Черга для активних об'єктів
+    [Header("Pool Settings")]
+    [SerializeField] private int maxPoolSize = 150;
+    [SerializeField] private int maxActiveObjects = 100;
 
-    void Start()
+    Queue<GameObject> pool = new Queue<GameObject>();
+    Queue<GameObject> activeObjects = new Queue<GameObject>();
+
+    public void InitializePool(int requiredActiveObjects)
     {
-        pool = new Queue<GameObject>();
-        activeObjects = new Queue<GameObject>();
+        int targetPoolSize = Mathf.Max(requiredActiveObjects, maxActiveObjects);
 
-        for (int i = 0; i < initialPoolSize; i++)
-            AddQueue();
+        while (pool.Count + activeObjects.Count < targetPoolSize)
+            InstantiateNewObject();
     }
 
     public GameObject Get(Vector3 spawnPosition)
     {
         if (pool.Count == 0)
-            AddQueue();
+            InstantiateNewObject();
 
-        GameObject pooledObject = pool.Dequeue();
-        pooledObject.transform.position = spawnPosition;
-        pooledObject.SetActive(true);
+        GameObject obj = pool.Dequeue();
+        obj.transform.position = spawnPosition;
+        obj.SetActive(true);
 
-        // Додаємо об'єкт до черги активних об'єктів
-        activeObjects.Enqueue(pooledObject);
+        activeObjects.Enqueue(obj);
 
-        // Якщо кількість активних об'єктів перевищує максимум, повертаємо найстаріший активний об'єкт у пул
         if (activeObjects.Count > maxActiveObjects)
         {
-            GameObject oldestActiveObject = activeObjects.Dequeue();
-            Return(oldestActiveObject);
+            GameObject oldest = activeObjects.Dequeue();
+            Return(oldest);
         }
 
-        return pooledObject;
+        return obj;
     }
 
     public void Return(GameObject obj)
     {
         obj.SetActive(false);
 
-        // Якщо кількість об'єктів у пулі менша за максимум, додаємо його назад у пул
         if (pool.Count < maxPoolSize)
-        {
             pool.Enqueue(obj);
-        }
         else
         {
-            // Інакше видаляємо найстаріший об'єкт з пулу та додаємо новий
-            GameObject oldestInPool = pool.Dequeue();
-            Destroy(oldestInPool);
+            GameObject oldest = pool.Dequeue();
+            Destroy(oldest);
             pool.Enqueue(obj);
         }
     }
 
-    private void AddQueue()
+    private void InstantiateNewObject()
     {
-        GameObject tilePrefab = objectPrefab[UnityEngine.Random.Range(0, objectPrefab.Length)];
-        GameObject obj = Instantiate(tilePrefab, parentTarget);
+        GameObject prefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
+        GameObject obj = Instantiate(prefab, parentTarget);
         obj.SetActive(false);
         pool.Enqueue(obj);
     }

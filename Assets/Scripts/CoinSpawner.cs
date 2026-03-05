@@ -1,79 +1,59 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] CoinPool coinPool;
-    [SerializeField] Transform player;
+    [SerializeField] private CoinPool coinPool;
+    [SerializeField] private Transform player;
 
     [Header("Spawn Settings")]
-    [SerializeField] int coinsCount = 40;
-    [SerializeField] float spawnRadius = 25f;
-    [SerializeField] float respawnDistance = 30f;
+    [SerializeField] private int coinsCount = 40;
+    [SerializeField] private float spawnRadius = 25f;
+    [SerializeField] private float respawnDistance = 30f;
 
-    private List<GameObject> spawnedCoins = new List<GameObject>();
+    private GameObject[] spawnedCoins;
+    private float respawnDistanceSqr;
 
     void Start()
     {
-        SpawnInitialCoins();
+        respawnDistanceSqr = respawnDistance * respawnDistance;
+
+        // Підлаштовуємо пул під coinsCount + maxActiveObjects
+        coinPool.InitializePool(coinsCount);
+
+        spawnedCoins = new GameObject[coinsCount];
+
+        for (int i = 0; i < coinsCount; i++)
+        {
+            Vector3 pos = GetRandomPointAroundPlayer();
+            spawnedCoins[i] = coinPool.Get(pos);
+        }
     }
 
     void Update()
     {
-        CheckCoinsDistance();
-    }
-
-    void SpawnInitialCoins()
-    {
-        for (int i = 0; i < coinsCount; i++)
+        for (int i = 0; i < spawnedCoins.Length; i++)
         {
-            SpawnCoin();
+            GameObject coin = spawnedCoins[i];
+            if (!coin.activeSelf) continue;
+
+            float sqrDistance = (player.position - coin.transform.position).sqrMagnitude;
+            if (sqrDistance > respawnDistanceSqr)
+            {
+                Vector3 newPos = GetRandomPointAroundPlayer();
+                coin.transform.position = newPos;
+            }
         }
     }
 
-    void SpawnCoin()
-    {
-        Vector3 pos = GetRandomPointAroundPlayer();
-        GameObject coin = coinPool.Get(pos);
-
-        spawnedCoins.Add(coin);
-    }
-
-    Vector3 GetRandomPointAroundPlayer()
+    private Vector3 GetRandomPointAroundPlayer()
     {
         Vector2 circle = Random.insideUnitCircle * spawnRadius;
 
-        Vector3 position = new Vector3(
-            player.position.x + circle.x,
-            player.position.y + 20f,
-            player.position.z + circle.y
-        );
+        Vector3 position = new Vector3(player.position.x + circle.x, player.position.y + 20f, player.position.z + circle.y);
 
-        // кидаємо Raycast вниз на terrain
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, 50f))
-        {
             position.y = hit.point.y;
-        }
 
         return position;
-    }
-
-    void CheckCoinsDistance()
-    {
-        foreach (var coin in spawnedCoins)
-        {
-            if (!coin.activeSelf) continue;
-
-            float distance = Vector3.Distance(player.position, coin.transform.position);
-
-            // якщо монета далеко — переносимо її
-            if (distance > respawnDistance)
-            {
-                coinPool.Return(coin);
-
-                Vector3 newPos = GetRandomPointAroundPlayer();
-                coinPool.Get(newPos);
-            }
-        }
     }
 }
