@@ -167,9 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoinSpawner
   coinPool: {fileID: 181089740}
   player: {fileID: 663326989}
-  coinsCount: 40
-  spawnRadius: 25
-  respawnDistance: 40
+  coinsCount: 350
+  spawnRadius: 30
 --- !u!114 &181089740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPool
   coinPrefab: {fileID: 3841823048447609891, guid: 1e58bfa0ceacb844ea6581199188e139, type: 3}
+  poolContainer: {fileID: 1511259130}
+  startSize: 50
 --- !u!114 &181089741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +191,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181089737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9016ecbae0bff2e49aaab435de040da1, type: 3}
   m_Name: 
@@ -335,6 +336,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3827754604379620974, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827754604379620974, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4327046225621317706, guid: 69db6e79b7045d04c97fd5af2c3e1116, type: 3}
       propertyPath: m_Name
       value: Player
@@ -560,10 +569,6 @@ PrefabInstance:
     - target: {fileID: 3841823048447609891, guid: 1e58bfa0ceacb844ea6581199188e139, type: 3}
       propertyPath: m_Name
       value: Coin
-      objectReference: {fileID: 0}
-    - target: {fileID: 8327807991572040543, guid: 1e58bfa0ceacb844ea6581199188e139, type: 3}
-      propertyPath: shrinkSpeed
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
