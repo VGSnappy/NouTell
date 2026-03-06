@@ -53,6 +53,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\Entities\Coin\CoinPool.cs" />
     <Compile Include="Assets\Scripts\Entities\Coin\CoinBehavior.cs" />
+    <Compile Include="Assets\Scripts\Entities\Coin\CoinManager.cs" />
     <Compile Include="Assets\Scripts\Player\CameraControl.cs" />
   </ItemGroup>
   <ItemGroup>
