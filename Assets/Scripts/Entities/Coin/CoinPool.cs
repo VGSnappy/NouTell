@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class CoinPool : MonoBehaviour
 {
-    [SerializeField] private GameObject coinPrefab; // Prefab монети
-    [SerializeField] private int poolSize = 40;     // Розмір пулу
+    [SerializeField] GameObject coinPrefab;
+    Queue<GameObject> pool = new Queue<GameObject>();
 
-    private Queue<GameObject> pool = new Queue<GameObject>();
-
-    public void InitializePool()
+    public void InitializePool(int size)
     {
-        for (int i = 0; i < poolSize; i++)
+        for (int i = 0; i < size; i++)
         {
-            GameObject coin = Instantiate(coinPrefab, transform);
+            GameObject coin = Instantiate(coinPrefab, transform.position,Quaternion.identity,GameObject.FindGameObjectWithTag("PCoin").transform);
+            coin.GetComponent<ParticleSystem>().Stop();
             coin.SetActive(false);
             pool.Enqueue(coin);
         }
@@ -21,14 +20,16 @@ public class CoinPool : MonoBehaviour
     public GameObject Get(Vector3 position)
     {
         if (pool.Count == 0)
-        {
-            Debug.LogWarning("CoinPool пустий!");
             return null;
-        }
 
         GameObject coin = pool.Dequeue();
         coin.transform.position = position;
         coin.SetActive(true);
+        coin.GetComponent<ParticleSystem>().Play();
+
+        CoinBehavior cb = coin.GetComponent<CoinBehavior>();
+        cb.OnSpawn(this);
+
         return coin;
     }
 

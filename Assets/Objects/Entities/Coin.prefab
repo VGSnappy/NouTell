@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025448026461475493}
-  - component: {fileID: 6100783614953432329}
+  - component: {fileID: 1938608878728090427}
   - component: {fileID: 5233139372239180464}
   - component: {fileID: 1033028037554665372}
+  - component: {fileID: 8327807991572040543}
   - component: {fileID: 3910325109247666705}
   - component: {fileID: 2756108595741030814}
   m_Layer: 0
@@ -31,19 +32,19 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.62073, y: 1.17247, z: -1}
-  m_LocalScale: {x: 0.4, y: 0.15, z: 0.4}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6100783614953432329
+--- !u!33 &1938608878728090427
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3841823048447609891}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5233139372239180464
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -116,6 +117,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8327807991572040543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3841823048447609891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e92fffda4e70445acd289dc6a1b73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinBehavior
+  orbitSpeed: 400
+  shrinkSpeed: 0.5
+  moveSpeed: 2
 --- !u!198 &3910325109247666705
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -131,7 +147,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -199,7 +215,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -370,7 +386,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.08
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -834,7 +850,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.05
       mode: 0
       spread: 0
       speed:
@@ -1063,7 +1079,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 40
+        scalar: 20
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -1117,7 +1133,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1441,7 +1457,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1

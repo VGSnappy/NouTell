@@ -20,6 +20,12 @@ public class PlayerControl : MonoBehaviour
         transform.Translate(move * speed * Time.deltaTime, Space.World);
     }
 
+    public void AddScore(int amount)
+    {
+        score += amount;
+        Debug.Log("Score: " + score);
+    }
+
 
     public void OnMove(InputValue value)
     {
